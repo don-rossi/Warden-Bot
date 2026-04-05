@@ -1,7 +1,10 @@
 # .bot_commands.py
 
 BOT_NAME = "⟁ 𝐖𝐀𝐑𝐃Ξ𝐍🎖️BOT"
-BOT_PICTURE = "https://i.imgur.com/your_image_here.png"  # Replace with your bot picture
+BOT_PICTURE = "https://i.imgur.com/your_bot_image.png"  # You can replace with any image URL
+
+WHATSAPP_CHANNEL = "https://whatsapp.com/channel/0029Vb7mwSm3LdQRu3JT5D1B"
+WHATSAPP_GROUP = "https://chat.whatsapp.com/GHc5qDYUNeN2w3Nei1yESy?mode=gi_t"
 
 # Commands structure: command_name: {"desc": description, "type": "group/user", "action": "kick/warn/info/etc"}
 COMMANDS = {

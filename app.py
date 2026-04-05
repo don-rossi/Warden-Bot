@@ -1,18 +1,11 @@
 from flask import Flask, request, jsonify
-import random, string, os
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
+import random, string
+from .bot_commands import BOT_NAME, BOT_PICTURE, COMMANDS, WHATSAPP_CHANNEL, WHATSAPP_GROUP
 
 app = Flask(__name__)
 pairing_codes = {}  # stores pairing codes temporarily
 
-WHATSAPP_CHANNEL = os.getenv("WHATSAPP_CHANNEL")
-WHATSAPP_GROUP = os.getenv("WHATSAPP_GROUP")
-BOT_NAME = os.getenv("BOT_NAME")
-
-# Generate random 6-character code
+# Generate random 6-character pairing code
 def generate_pairing_code():
     return ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
 
@@ -47,6 +40,20 @@ def verify_code():
     else:
         return jsonify({"error": "Invalid pairing code"}), 400
 
-# Run the app
+# Endpoint to view bot menu
+@app.route("/menu", methods=["GET"])
+def menu():
+    menu_text = f"{BOT_NAME} Commands Menu\n\n"
+    for cmd, info in COMMANDS.items():
+        menu_text += f"{cmd} - {info['desc']}\n"
+    return jsonify({
+        "bot_name": BOT_NAME,
+        "bot_picture": BOT_PICTURE,
+        "whatsapp_channel": WHATSAPP_CHANNEL,
+        "whatsapp_group": WHATSAPP_GROUP,
+        "menu": menu_text
+    })
+
+# Run the bot
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
